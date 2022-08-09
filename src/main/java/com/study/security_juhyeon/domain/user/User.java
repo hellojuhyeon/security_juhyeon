@@ -28,9 +28,9 @@ public class User {
 	   
 	   
 	   public List<String> getUserRoles(){
-		   if(user_roles==null) {
+		   if(user_roles==null||user_roles.isBlank()) {
 		   return new ArrayList<String>();
 		  }
-		   return Arrays.asList(user_roles.split(","));
+		   return Arrays.asList(user_roles.replaceAll(" ","").split(","));
 	   }
 }

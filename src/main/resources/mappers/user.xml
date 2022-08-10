@@ -35,7 +35,7 @@
 			ud.user_phone,
 			ud.user_gender
 		from
-			user_mst
+			user_mst um
 			left outer join user_dtl ud on(ud.user_code=um.user_code)
 		where
 			um.user_id=#{username}

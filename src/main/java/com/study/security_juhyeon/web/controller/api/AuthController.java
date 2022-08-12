@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.study.security_juhyeon.handler.aop.annotation.Log;
 import com.study.security_juhyeon.handler.aop.annotation.Timer;
+import com.study.security_juhyeon.handler.aop.annotation.ValidCheck2;
 import com.study.security_juhyeon.handler.exception.CustomValidationApiException;
 import com.study.security_juhyeon.service.auth.AuthService;
 import com.study.security_juhyeon.service.auth.PrincipalDetailsService;
@@ -36,18 +37,11 @@ public class AuthController {
 	private final AuthService authService;
 	@Log
 	@Timer
+	@ValidCheck2
 	@GetMapping("/signup/validation/username")
 	public ResponseEntity<?> checkUsername(@Valid UsernameCheckReqDto usernameCheckReqDto, BindingResult bindingResult) {
 		
-		if(bindingResult.hasErrors()) {
-			Map<String, String> errorMessage = new HashMap<String, String>();
-			
-			bindingResult.getFieldErrors().forEach(error -> {
-				errorMessage.put(error.getField(), error.getDefaultMessage());
-			});
-			
-			throw new CustomValidationApiException("유효성 검사 실패", errorMessage);
-		}
+		
 		
 		boolean status = false;
 		
@@ -60,20 +54,12 @@ public class AuthController {
 		
 		return ResponseEntity.ok(new CMRespDto<>(1, "회원가입 가능여부", status));
 	}
-
+	@ValidCheck2
 	@PostMapping("/signup")
 	public ResponseEntity<?> signup(@RequestBody @Valid SignupReqDto signupReqDto, BindingResult bindingResult) {
 		boolean status = false;
 		
-		if(bindingResult.hasErrors()) {
-			Map<String, String> errorMessage = new HashMap<String, String>();
-			
-			bindingResult.getFieldErrors().forEach(error -> {
-				errorMessage.put(error.getField(), error.getDefaultMessage());
-			});
-		throw new CustomValidationApiException("유효성 검사 실패", errorMessage);
-			
-		}
+		
 		
 		try {
 			status = principalDetailsService.addUser(signupReqDto);

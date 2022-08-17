@@ -21,12 +21,25 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 	private final UserRepository userRepository;
+	
+	/*
+	 * Oauth2User의 정보를 우리 서버 database에 등록
+	 */
 	@Override
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 		String provider = null;
-
+		/*
+		 * super.loaduser(userreqwest)
+		 * 엔드포인트 결과 즉 OAuth2User정보를 가진 객체를 리턴해줌
+		 */
 		OAuth2User oAuth2User = super.loadUser(userRequest);
+		/*
+		 * Provider정보(클라이언트 아이디, 클라이언트 시크릿, 클라이언트 네임)
+		 */
 		ClientRegistration clientRegistration = userRequest.getClientRegistration();
+		/*
+		 * 실제 프로필 정보(Map)
+		 */
 		Map<String, Object> attributes = oAuth2User.getAttributes();
 		log.error(">>>>>clientRegistration:{}", clientRegistration);
 		log.error(">>>>>attributes:{}",attributes);
@@ -56,7 +69,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 			}
 			oauth2_id = provider + "_" + id;
 			try {
-				user = userRepository.findUserByUsername(oauth2_id);
+				user = userRepository.findOauth2UserByUsername(oauth2_id);
 			} catch (Exception e) {
 				e.printStackTrace();
 				throw new OAuth2AuthenticationException("DATABASE Error");
@@ -75,7 +88,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 						
 				try {
 					userRepository.save(user);
-					user = userRepository.findUserByUsername(oauth2_id);
+					user = userRepository.findOauth2UserByUsername(oauth2_id);
 				} catch (Exception e) {
 					e.printStackTrace();
 					throw new OAuth2AuthenticationException("DATABASE ERROR");

@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.filter.CorsFilter;
 
 import com.study.security_juhyeon.config.auth.AuthFailUreHandler;
 import com.study.security_juhyeon.service.auth.PrincipalOauth2UserService;
@@ -19,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
+	private final CorsFilter corsFilter;
 	private final PrincipalOauth2UserService principalOauth2UserService;
 	
 	@Bean
@@ -28,7 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable();					//<=이거 안하면 나중에 문제생김
+		http.csrf().disable();	//<=이거 안하면 나중에 문제생김
+		http.addFilter(corsFilter);
 		http.authorizeRequests()
 			.antMatchers("/api/v1/grant/tert/user/**")
 			.access("hasRole('ROLE_USER') or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")

@@ -61,25 +61,27 @@
         
        
     </main>
-        <script type="text/javascript">
-          let oEditors = [];
-          nhn.husky.EZCreator.createInIFrame({
-           oAppRef: oEditors,
-           elPlaceHolder: "ir1",
-           sSkinURI: "/static/SmartEditor2Skin.html",
-           fCreator: "createSEditor2"
-          });
+    <script type="text/javascript">
+      var oEditors = [];
+      nhn.husky.EZCreator.createInIFrame({
+       oAppRef: oEditors,
+       elPlaceHolder: "ir1",
+       sSkinURI: "/static/SmartEditor2Skin.html",
+       fCreator: "createSEditor2"
+      });
 
-          const textareaValue = document.querySelector("#ir1").value;
-          const submitButton = document.querySelector(".notice-button .submit");
+      const submitButton = document.querySelector(".submit");
+      
+      submitButton.onclick = () => {
+        /*
+        editor의 내용을 textarea로 옮겨주는 역할
+        */
+       
+       oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
+       const textareaValue = document.querySelector("#ir1").value;
+        alert(textareaValue);
+      }
 
-          submitButton.onClick=()=>{
-            /*
-            editor의 내용을 textArea로 옮겨주는 역할
-            */
-            oEditors.getById["ir"].exec("UPDATE_CONTENTS_FIELD",[])
-            alert(textareaValue)
-          }
 
 
 

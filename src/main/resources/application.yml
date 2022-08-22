@@ -47,6 +47,18 @@ spring:
     username: "admin"
     password: "1q2w3e4r"
     
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+        
+  
+    
 mybatis:
   mapper-locations:
   - /mappers/*.xml
+  
+
+
+file:
+  path: C:/junil/juhyeon/workspace/git/security_juhyeon/upload/

@@ -56,8 +56,10 @@ signupButton.onclick = () => {
 		data: JSON.stringify(signupData),
 		dataType: "json",
 		success: (response) => {
-			alert("회원가입 완료.");
-			location.replace("/auth/signin");
+			if(response.data){
+				alert("회원가입 완료.");
+				location.replace("/auth/signin");
+			}
 		},
 		error: (error) => {
 			if(error.status == 400){

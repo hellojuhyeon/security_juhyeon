@@ -1,6 +1,7 @@
-*:not(p, b, i){
+
+*:not(p, b, i) {
     box-sizing: border-box;
-    
+
     margin: 0px;
     padding: 0px;
 
@@ -8,11 +9,11 @@
     font-weight: 300;
 }
 
-html, body{
+html, body {
     height: 100%;
     background-color: #fafafa;
 }
 
-button{
+button {
     cursor: pointer;
 }

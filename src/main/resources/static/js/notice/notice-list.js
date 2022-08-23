@@ -1,19 +1,19 @@
-function load(){
-	
+
+function load() {
 	const listFooter = document.querySelector(".list-footer");
 	
-	if(getUser()==null){
-		if(getUser().userRoles.includes("ROLE_ADMIN")){
+	if(getUser() != null) {
+		if(getUser().userRoles.includes("ROLE_ADMIN")) {
 			listFooter.innerHTML += `
-			<button type="button"class="notice-add-button">Write</button>
+				<button type="button" class="notice-add-button">글 쓰기</button>
 			`;
 			
-			const noticeAddButton = document.querySelector(".notice-add-button")
+			const noticeAddButton = document.querySelector(".notice-add-button");
 			
-			noticeAddButton.onclick =()=>{
+			noticeAddButton.onclick = () => {
 				location.href = "/notice/addition";
-			} 
-		}	
+			}
+		}
 	}
 }
 

@@ -13,14 +13,14 @@ public class NoticePageController {
 	}
 	@GetMapping("/addition")
 	public String loadNoticeInsert() {
-		return "notice/notice_insert";
+		return "notice/notice-insert";
 	}
-	@GetMapping("/{noticeCode}")
+	@GetMapping("/detail/{noticeCode}")
 	public String loadNoticeDetail() {
 		return "notice/notice_detail";
 	}
 	@GetMapping("/modification/{noticeCode}")
 	public String loadNoticeModify() {
-		return "notice/notice_modify";
+		return "notice/notice-modify";
 	}
 }

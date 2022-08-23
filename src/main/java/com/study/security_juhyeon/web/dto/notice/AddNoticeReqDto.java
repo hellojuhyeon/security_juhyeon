@@ -10,7 +10,7 @@ import lombok.Data;
 public class AddNoticeReqDto {
 	private String noticeTitle;
 	private int userCode;
-	private String irl;
+	private String ir1;
 	private List<MultipartFile> file;
 	
 	

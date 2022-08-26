@@ -60,10 +60,14 @@ public class NoticeServiceImpl implements NoticeService{
 
 	   Notice notice =null;
 	  
+	   String noticeTitle = addNoticeReqDto.getNoticeTitle();
+	   
+	   for(int i=0;i<200;i++) {
+		   
 	   
 	   
 	   notice = Notice.builder()
-			   .notice_title(addNoticeReqDto.getNoticeTitle())
+			   .notice_title(noticeTitle+"_"+i)
 			   .user_code(addNoticeReqDto.getUserCode())
 			   .notice_content(addNoticeReqDto.getIr1())
 			   .build();
@@ -99,6 +103,8 @@ public class NoticeServiceImpl implements NoticeService{
 		   }
 		noticeRepository.saveNoticeFiles(noticeFiles);
 		}
+		   
+	   }
 	  return notice.getNotice_code(); 
 	}
 	   @Override
